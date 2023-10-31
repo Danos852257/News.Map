@@ -1,4 +1,3 @@
-
 const countryCodes = [
     'af', 'al', 'dz', 'as', 'ai', 'au', 'at', 'bs', 'bh', 'bd',
     'bb', 'by', 'be', 'bz', 'bj', 'bm', 'bt', 'ba', 'bv', 'br',
@@ -18,39 +17,7 @@ const countryCodes = [
     'tg', 'to', 'tt', 'tr', 'tv', 'ua', 'ug', 'ae', 'gb', 'us',
     'uy', 'uz', 'vu', 'zm'
   ];
-  const countryNames = [
-    'Afghanistan', 'Albania', 'Algeria', 'American Samoa', 'Anguilla',
-    'Australia', 'Austria', 'The Bahamas', 'Bahrain', 'Bangladesh',
-    'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bermuda',
-    'Bhutan', 'Bosnia and Herzegovina', 'Bouvet Island', 'Brazil',
-    'British Indian Ocean Territory', 'Brunei', 'Bulgaria', 'Burkina Faso',
-    'Burundi', 'Cambodia', 'Cameroon', 'Canada', 'Cape Verde',
-    'Central African Republic', 'Chile', 'China', 'Colombia', 'Comoros',
-    'Democratic Republic of the Congo', 'Republic of the Congo', 'Costa Rica',
-    "Côte d'Ivoire (Ivory Coast)", 'Croatia', 'Cuba', 'Cyprus', 'Czech Republic',
-    'Denmark', 'Djibouti', 'Dominican Republic', 'Ecuador', 'Egypt',
-    'El Salvador', 'Eritrea', 'Ethiopia', /*'European Union'*/, 'Fiji',
-    'Finland', 'France', 'French Guiana', 'French Polynesia', 'Gambia',
-    'Germany', 'Ghana', 'Greece', 'Guatemala', 'Guinea', 'Guyana',
-    'Honduras', 'Hong Kong', 'Hungary', 'Iceland', 'India', 'Indonesia',
-    'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy', 'Japan', 'Jordan',
-    'Kazakhstan', 'Kenya', 'Kuwait', 'Laos', 'Latvia', 'Lebanon',
-    'Lesotho', 'Liberia', 'Liechtenstein', 'Lithuania', 'Luxembourg',
-    'North Macedonia', 'Madagascar', 'Malawi', 'Malaysia', 'Maldives',
-    'Mali', 'Malta', 'Mauritania', 'Mauritius', 'Mexico', 'Micronesia',
-    'Moldova', 'Monaco', 'Montenegro', 'Montserrat', 'Morocco', 'Myanmar (Burma)',
-    'Namibia', 'Nepal', 'Netherlands', 'New Zealand', 'Niger', 'Nigeria',
-    'North Korea', 'Norway', 'Oman', 'Pakistan', 'Palestine', 'Paraguay',
-    'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania',
-    'Russia', 'Rwanda', 'Saint Kitts and Nevis', 'Saint Vincent and the Grenadines',
-    'San Marino', 'Saudi Arabia', 'Senegal', 'Serbia', 'Seychelles',
-    'Sierra Leone', 'Singapore', 'Slovakia', 'Slovenia', 'Solomon Islands',
-    'Somalia', 'South Africa', 'South Korea', 'Spain', 'Sri Lanka', 'Suriname',
-    'Eswatini', 'Sweden', 'Switzerland', 'Syria', 'Taiwan', 'Tajikistan',
-    'Thailand', 'Timor-Leste', 'Togo', 'Tonga', 'Trinidad and Tobago', 'Turkey',
-    'Tuvalu', 'Ukraine', 'Uganda', 'United Arab Emirates', 'United Kingdom',
-    'United States of America', 'Uruguay', 'Uzbekistan', 'Vanuatu', 'Zambia'
-];
+
 
 let variable = true;
 function falseVar(){
@@ -87,6 +54,14 @@ function subtractOneMonthFromDate(date) {
 
 
 const countryCoords =[
+  {
+    "country" : "Afghanistan",
+    "alpha2" : "AF",
+    "alpha3" : "AFG",
+    "numeric" : 4,
+    "latitude" : 33,
+    "longitude" : 65
+  },
 {
     "country" : "Albania",
     "alpha2" : "AL",
@@ -2022,13 +1997,5 @@ const countryCoords =[
     "numeric" : 716,
     "latitude" : -20,
     "longitude" : 30
-  },
-{
-    "country" : "Afghanistan",
-    "alpha2" : "AF",
-    "alpha3" : "AFG",
-    "numeric" : 4,
-    "latitude" : 33,
-    "longitude" : 65
   }
 ]
