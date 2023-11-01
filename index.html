@@ -119,28 +119,6 @@
             }
         }
 
-        async function displayArticles(code) {
-            let coords = await geocodeLocation(code);
-
-            const articles = await fetchNewsData(code);
-            articles.forEach(function (article) {
-                // Create a marker
-                let marker = L.marker([coords.la, coords.lo], {
-                    icon: L.AwesomeMarkers.icon({
-                        icon: 'circle',
-                        markerColor: 'red',
-                        prefix: 'fa',
-                        iconColor: 'black'
-                    }),
-                }).addTo(map);
-
-                marker.bindPopup(`
-                    <h3>${article.title}</h3>
-                    ${article.description && article.description.length > 15 ? `<p>${article.description}</p>` : ''}
-                    <a href="${article.url}" target="_blank">Read more</a>
-                `);
-            });
-        }
         function displayPins(code) {
             let coords = geocodeLocation(code);
             let q;
@@ -204,8 +182,6 @@
             while (i<countryCodes.length){
                 variable = true;
                 displayPins(countryCodes[i]);
-                //displayArticles(countryCodes[i]);
-
                 i++
             }
         }
