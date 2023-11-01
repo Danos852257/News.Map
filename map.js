@@ -44,17 +44,7 @@ function subtractOneMonthFromDate(date) {
   return new Date(year, month, date.getDate());
 }
 
-
-
-
-
-
-
-
-
-
-
-
+//Data with country information
 const countryCoords =[
   {
     "country" : "Afghanistan",
