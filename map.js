@@ -1,3 +1,5 @@
+//A list of 2-digit codes for countries/territories/dependencies that are supported by World News API
+//EU is not a country so I did not include it
 const countryCodes = [
     'af', 'al', 'dz', 'as', 'ai', 'au', 'at', 'bs', 'bh', 'bd',
     'bb', 'by', 'be', 'bz', 'bj', 'bm', 'bt', 'ba', 'bv', 'br',
@@ -18,7 +20,7 @@ const countryCodes = [
     'uy', 'uz', 'vu', 'zm'
   ];
 
-
+//Flag variable used to go through the api keys
 let variable = true;
 function falseVar(){
   variable = false;

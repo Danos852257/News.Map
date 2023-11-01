@@ -1,17 +1,19 @@
-<!--Hello-->
+<!--This is basically the main file for the code.-->
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>News Map</title>
-    <!-- Include Leaflet CSS -->
+    <!--Leaflet CSS-->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <!--Import the style.css file-->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!--other files in the folder-->
     <script src="map.js"></script>
     <script src="keys.js"></script>
     <!--Leaflet JavaScript-->
@@ -19,9 +21,7 @@
     <script src="https://unpkg.com/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.js"></script>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <script>
-        
         // Title at the top of the page
-        // Create a container div for the text
         var textContainer = document.createElement("div");
         textContainer.style.textAlign = "center";
 
@@ -39,7 +39,7 @@
         document.body.appendChild(textContainer);
     </script>
 
-    <!-- Create a div element to hold the map -->
+    <!-- div element to hold the map -->
     <div id="map" style="width: 95%; height: 88vh; top: 20px; margin: 0 auto; position: relative;"></div>
 
     <script>
@@ -51,21 +51,22 @@
             maxZoom: 16
         });
 
-        // Add a tile layer (in this case, OpenStreetMap tiles)
+        // Add a tile layer
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        let longitudeData, latitudeData, locationData
-
+        //function that returns the coordinates for the center of a country
         function geocodeLocation(location) {
+            //variables
             let counter=0;
             let la;
             let lo;
             let worked=false;
-            while (counter<countryCoords.length){
+            while (counter<countryCoords.length){ //checks every country on the list in map.js
                 let x =(countryCoords[counter].alpha2)
-                if(x.toUpperCase()===(location.toUpperCase())){
+                if(x.toUpperCase()===(location.toUpperCase())){ //checks if the give 2 letter code is the same as the one in the data
+                    //sets and (later) returns the coordinates
                     la=countryCoords[counter].latitude;
                     lo=countryCoords[counter].longitude
                     worked = true;
@@ -83,51 +84,55 @@
             }
         }
 
-        geocodeLocation("china")
-        //Function to fetch and display news articles for a location
+        //Function to fetch news articles for a location
         async function fetchNewsData(location) {
             key = api_keys[num]
             language = "en";
             rawdate = subtractOneMonthFromDate(new Date());
-            date = rawdate.toISOString().substr(0, 10);
+            date = rawdate.toISOString().substr(0, 10); //the earliest date it will get information from
+            //API url request
             let newsUrl = `https://api.worldnewsapi.com/search-news?api-key=${key}&source-countries=${location}&language=${language}&earliest-publish-date=${date}`;
             let w = 0;
             while(true){
                 try {
                     const response = await fetch(newsUrl);
-                    if (!response.ok) {
+                    if (!response.ok) { //this part happens when the api key is out of tokens.
                         throw new Error('Error fetching news API KEY IS DEAD :(');
                         changeNum();
                         falseVar();
                     }
                     const data = await response.json();
-                    if (data.news == null) {
+                    if (data.news == null) { //I haven't seen this one happen, it is more of just a safety
                         changeNum();
                         falseVar();
                     }
                     return data.news;
                     break;
-                } catch (error) {
+                } catch (error) { //can happen if not connected to the internet
                     console.error('Error fetching news data: ', error);
                     changeNum();
                     falseVar();
                 }
                 w++;
-                if(w>100){
+                //Sometimes trying the request multiple times makes it work, so I made it try 100 times (normally this is not an issue unless issue with API)
+                if(w>100){ 
                     break;
                 }
             }
         }
 
+        //Function to make the pins on the map and give them information
         function displayPins(code) {
             let coords = geocodeLocation(code);
             let q;
+            //Gets the country name based on the 2 letter code
             for (let z = 0; z < countryCoords.length; z++) {
                 if ((countryCoords[z].alpha2).toUpperCase() === (code.toUpperCase())) {
                     q = countryCoords[z].country;
                     break;
                 }
             }
+            //Creates and Adds the marker to the Map
             let marker = L.marker([coords.la, coords.lo], {
                 icon: L.AwesomeMarkers.icon({
                     icon: 'circle',
@@ -137,14 +142,14 @@
                 }),
             }).addTo(map);
 
-            // Attach a click event handler to the marker
+            //Click event handler to the marker
             marker.on('click', function () {
                 // Make an API request to fetch news data for the selected country
                 fetchNewsData(code)
                     .then((newsData) => {
                         // Check if news data is available
                         if (newsData && newsData.length > 0) {
-                            // Display the news data in a popup
+                            // Display the news data in the marker
                             marker.bindPopup(`
                                 <h3>${q}</h3>
                                 <div>
@@ -158,25 +163,28 @@
                                 </div>
                             `);
                         } else {
-                            // No news available
+                            // No news available, displays a link to Wikipedia Article instead
                             marker.bindPopup(`
                                 <h3>${q}</h3>
                                 <p>No news available</p>
+                                <a href="https://en.wikipedia.org/wiki/${q}" target="_blank">Wikipedia</a>
                             `);
                         }
                         marker.openPopup();
                     })
                     .catch((error) => {
-                        // Handle errors by displaying a message
+                        // Error Message if it Doesn't work
                         console.error("Error fetching news data:", error);
                         marker.bindPopup(`
                             <h3>${q}</h3>
                             <p>No news available</p>
+                            <a href="https://en.wikipedia.org/wiki/${q}" target="_blank">Wikipedia</a>
                         `);
                         marker.openPopup();
                     });
             });
         }
+        //Calls displayPins() for each country
         function fillMap(){
             let i = 0;
             while (i<countryCodes.length){
