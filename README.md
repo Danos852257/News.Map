@@ -1,21 +1,7 @@
 # News.Map
+A map with points on countries that show news about each country.
 
-IMPORTANT (in case you want to run the code): There is a hidden file called keys.java that wasn't uploaded, as you can see in gitignore. It contains the api keys.
 
-keys.js:
-
-const api_keys = [
-    /*The api keys needed that I got from World News Api*/
-  ];
-let num=0; //which index of the array you are using
-function changeNum(){ //change the index if it stops working
-  if(num>=api_keys.length-1){
-    num = 0;
-  }
-  else{
-    num = num+1;
-  }
-}
 
 
 If you want to run the code yourself, you'll need to:
